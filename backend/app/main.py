@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import Base, engine
 
-# Register models before creating tables
+# Import models so SQLAlchemy registers tables
 from app.models.user import User
 
 from app.api.auth import router as auth_router
@@ -17,8 +17,9 @@ app = FastAPI(
 )
 
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
 
 
 # CORS Configuration
