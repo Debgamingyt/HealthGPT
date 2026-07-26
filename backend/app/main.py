@@ -3,11 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import Base, engine
 
-# Import models BEFORE create_all()
-# This registers tables with SQLAlchemy
+# Register models before creating tables
 from app.models.user import User
-from app.models.chat import ChatSession
-from app.models.medical_report import MedicalReport
 
 from app.api.auth import router as auth_router
 from app.api.chat import router as chat_router
@@ -20,7 +17,7 @@ app = FastAPI(
 )
 
 
-# Create database tables in Neon PostgreSQL
+# Create database tables
 Base.metadata.create_all(bind=engine)
 
 
