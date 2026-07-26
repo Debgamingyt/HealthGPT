@@ -1,17 +1,27 @@
-from app.database.database import engine
-from app.models.base import Base
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.database.database import Base, engine
+
+# Import models so SQLAlchemy knows all tables
+from app.models import user
+from app.models import chat
+from app.models import medical_report
 
 from app.api.auth import router as auth_router
 from app.api.chat import router as chat_router
 from app.api.medical_report import router as medical_report_router
 
+
 app = FastAPI(
     title="HealthGPT API",
     version="1.0.0"
 )
+
+
+# Create database tables
 Base.metadata.create_all(bind=engine)
+
 
 # CORS Configuration
 app.add_middleware(
@@ -24,6 +34,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Routes
 app.include_router(auth_router)
