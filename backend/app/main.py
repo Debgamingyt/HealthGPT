@@ -15,7 +15,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://healthgpt-delta.vercel.app/",
+        "https://healthgpt-delta.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
