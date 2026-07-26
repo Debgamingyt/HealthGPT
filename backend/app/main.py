@@ -1,3 +1,5 @@
+from app.database.database import engine
+from app.models.base import Base
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,6 +11,7 @@ app = FastAPI(
     title="HealthGPT API",
     version="1.0.0"
 )
+Base.metadata.create_all(bind=engine)
 
 # CORS Configuration
 app.add_middleware(
